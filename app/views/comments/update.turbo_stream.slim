@@ -1,0 +1,6 @@
+- if @comment.errors.any?
+  = turbo_stream.replace @comment, partial: 'comments/edit', locals: { blog: @blog, comment: @comment }
+- else
+  = turbo_stream.replace "blog_comment_#{@comment.id}", partial: 'comments/comment', locals: { blog: @blog, comment: @comment, action_controls: @comment.user.id == Current.user.id }
+  = @comment.broadcast_replace_to([@blog, :comments], partial: 'comments/comment', locals: { blog: @blog, comment: @comment, action_controls: false }, target: "blog_comment_#{@comment.id}")
+

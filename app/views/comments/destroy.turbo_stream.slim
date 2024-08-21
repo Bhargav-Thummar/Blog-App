@@ -1,0 +1,2 @@
+= turbo_stream.remove "blog_#{@comment.id}"
+= @comment.broadcast_remove_to([@blog, :comments], target: "blog_comment_#{@comment.id}")
